@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Hyunjin Popup Love + Музыка</title>
+  <style>
+    <body>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    .open-btn {
+      margin: 100px auto;
+      display: block;
+      padding: 15px 30px;
+      background-color: #4b0082;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .open-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .popup-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.5s ease forwards;
+      z-index: 10;
+    }
+
+    .popup {
+      position: relative;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 90%;
+      max-height: 80%;
+      overflow: auto;
+      text-align: center;
+      animation: popupAppear 0.5s ease forwards;
+    }
+
+    .popup img {
+      max-width: 100%;
+      border-radius: 10px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ff1493;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    @keyframes popupAppear {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
+      background-size: contain;
+      animation: floatUp 4s infinite;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="open-btn" onclick="openPopup()">Показать Хенджина 💫</button>
+
+  <div class="popup-bg" onclick="closePopup()" id="popupBg">
+    <div class="popup" onclick="event.stopPropagation()">
+      <h2>Наш сияющий Хенджин ✨</h2>
+      <div style="position: relative;">
+        <img src="https://i.pinimg.com/1200x/81/fb/fa/81fbfa7c056509375f2ea7a2a8298a5a.jpg" alt="Hyunjin">
+        <div id="hearts-container"></div>
+      </div>
+      <br>
+      <button class="close-btn" onclick="closePopup()">Закрыть</button>
+    </div>
+  </div>
+
+  <!-- 🎵 МУЗЫКА -->
+  <audio>
+  <audio id="bgMusic" loop>
+    <audio src="ice-cream.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+
+    function openPopup() {
+      const bg = document.getElementById('popupBg');
+      bg.style.display = 'flex';
+      startHearts();
+      music.play();
+    }
+
+    function closePopup() {
+      document.getElementById('popupBg').style.display = 'none';
+      document.getElementById('hearts-container').innerHTML = '';
+      music.pause();
+      music.currentTime = 0;
+    }
+
+    function startHearts() {
+      const container = document.getElementById('hearts-container');
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDelay = (Math.random() * 2) + 's';
+        container.appendChild(heart);
+      }
+    }
+  </script>
+
+</body>
+</html>
